@@ -9,7 +9,8 @@
 
 #include "string.h"
 #include "../libs/md5.h"
-
+#include "../constants.h"
+#include "../functions/string_helpper.h"
 class User {
 public:
     User(char username[], char password[]);
