@@ -1,11 +1,22 @@
 //
-// Created by lengkeng on 23/11/2016.
+// Created by quangminh on 29/11/2016.
 //
 
 #ifndef SHARE_FILE_FIND_FILE_H
 #define SHARE_FILE_FIND_FILE_H
 
+#include "stdio.h"
+#include <iostream>
+#include <sys/socket.h>
+#include <sstream>
 
-int check_file_exist(char file_name[]);
+using namespace std;
+
+class find_file {
+public:
+    static void findFileWithKeyword(int client_sock);
+    static char * checkExistFile(char *fileName);
+};
+
 
 #endif //SHARE_FILE_FIND_FILE_H

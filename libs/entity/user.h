@@ -1,22 +1,22 @@
 //
-// Created by lengkeng on 23/11/2016.
+// Created by quangminh on 24/11/2016.
 //
 
 #ifndef SHARE_FILE_USER_H
 #define SHARE_FILE_USER_H
 
-#endif //SHARE_FILE_USER_H
-
-#include "string.h"
-#include "../libs/md5.h"
-#include "../constants.h"
-#include "../functions/string_helpper.h"
-class User {
+#include "stdio.h"
+#include <string.h>
+#include <string>
+using namespace std;
+class user {
 public:
-    User(char username[], char password[]);
-
-    static int checkString(char string);
-
-    char username[100];
-    char password[100];
+    static bool checkString(char string[]);
+    string username;
+    string password;
+    int status;
+    int clientSock;
 };
+
+
+#endif //SHARE_FILE_USER_H
