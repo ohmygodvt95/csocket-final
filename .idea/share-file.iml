@@ -7,6 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/server/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/main.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/libs/constants.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/libs/functions/string_helper.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/libs/functions/string_helper.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/libs/md5/md5.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/libs/md5/md5.h" isTestSource="false" />
     </content>

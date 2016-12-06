@@ -1,5 +1,5 @@
 //
-// Created by lengkeng on 23/11/2016.
+// Created by quangminh on 24/11/2016.
 //
 
 #ifndef SHARE_FILE_USER_H
@@ -13,10 +13,13 @@
 #include "../functions/string_helper.h"
 class User {
 public:
-    User(char username[], char password[]);
+    static bool checkString(char string[]);
 
-    static int checkString(char string);
-
-    char username[100];
-    char password[100];
+    string username;
+    string password;
+    int status;
+    int clientSock;
 };
+
+
+#endif //SHARE_FILE_USER_H

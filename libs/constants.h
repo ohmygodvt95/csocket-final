@@ -8,6 +8,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define DATA_FILE "./data/users.txt"
 
 // signup signin
 #define SIGN_IN 101
