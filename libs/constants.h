@@ -8,7 +8,9 @@
 
 #define TRUE 1
 #define FALSE 0
+
 #define DATA_FILE "./data/users.txt"
+#define PORT_SIGNUP_LOGIN 5500
 
 // signup signin
 #define SIGN_IN 101
