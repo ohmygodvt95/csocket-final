@@ -11,11 +11,11 @@
 //    strcpy(user::password, md5(password).c_str());
 //}
 
-bool user::checkString(char string[]) {
+bool user::check_string(char string[]) {
 
     for (int i = 0; i < strlen(string); i++) {
         char c = toupper(string[i]);
-        if (!string_helper::is_digit(c) && !string_helper::is_alphabet(c) && c != '_')
+        if (!is_digit(c) && !is_alphabet(c) && c != '_')
             return false;
 
     }
