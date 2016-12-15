@@ -4,10 +4,14 @@
 
 #ifndef SHARE_FILE_SIGNUP_H
 #define SHARE_FILE_SIGNUP_H
-
-
+#include "stdio.h"
+#include <stdlib.h>
+using namespace std;
+#include "../../libs/entity/user.h"
+#include "../../libs/constants.h"
 class signup {
-    static int sign(int *state,int client_sock);
+public:
+    static int sign( int client_sock);
 };
 
 

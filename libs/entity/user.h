@@ -16,6 +16,7 @@ public:
     string password;
     int status;
     int clientSock;
+    int clientTranferSock;
 };
 
 

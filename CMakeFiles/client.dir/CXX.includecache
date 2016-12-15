@@ -1,0 +1,128 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/quangminh/NetWork Programming/csocket-final/client/find_file/find_file.cpp
+cstring
+-
+list
+-
+find_file.h
+/home/quangminh/NetWork Programming/csocket-final/client/find_file/find_file.h
+../../libs/constants.h
+/home/quangminh/NetWork Programming/csocket-final/libs/constants.h
+../../libs/functions/string_helper.h
+/home/quangminh/NetWork Programming/csocket-final/libs/functions/string_helper.h
+
+/home/quangminh/NetWork Programming/csocket-final/client/find_file/find_file.h
+stdio.h
+/home/quangminh/NetWork Programming/csocket-final/client/find_file/stdio.h
+iostream
+-
+sys/socket.h
+-
+sstream
+-
+
+/home/quangminh/NetWork Programming/csocket-final/client/main.cpp
+main.h
+/home/quangminh/NetWork Programming/csocket-final/client/main.h
+signin/signin.h
+/home/quangminh/NetWork Programming/csocket-final/client/signin/signin.h
+find_file/find_file.h
+/home/quangminh/NetWork Programming/csocket-final/client/find_file/find_file.h
+iostream
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+string.h
+-
+zconf.h
+-
+thread
+-
+pthread.h
+-
+
+/home/quangminh/NetWork Programming/csocket-final/client/main.h
+
+/home/quangminh/NetWork Programming/csocket-final/client/signin/signin.cpp
+iostream
+-
+sys/socket.h
+-
+sstream
+-
+signin.h
+/home/quangminh/NetWork Programming/csocket-final/client/signin/signin.h
+
+/home/quangminh/NetWork Programming/csocket-final/client/signin/signin.h
+stdio.h
+/home/quangminh/NetWork Programming/csocket-final/client/signin/stdio.h
+stdlib.h
+-
+../../libs/entity/user.h
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/user.h
+../../libs/constants.h
+/home/quangminh/NetWork Programming/csocket-final/libs/constants.h
+
+/home/quangminh/NetWork Programming/csocket-final/client/signup/signup.cpp
+signup.h
+/home/quangminh/NetWork Programming/csocket-final/client/signup/signup.h
+
+/home/quangminh/NetWork Programming/csocket-final/client/signup/signup.h
+
+/home/quangminh/NetWork Programming/csocket-final/libs/constants.h
+
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/user.cpp
+user.h
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/user.h
+../md5/md5.h
+/home/quangminh/NetWork Programming/csocket-final/libs/md5/md5.h
+../functions/string_helper.h
+/home/quangminh/NetWork Programming/csocket-final/libs/functions/string_helper.h
+
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/user.h
+stdio.h
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/stdio.h
+string.h
+-
+string
+-
+
+/home/quangminh/NetWork Programming/csocket-final/libs/functions/string_helper.cpp
+cstdlib
+-
+cstring
+-
+string_helper.h
+/home/quangminh/NetWork Programming/csocket-final/libs/functions/string_helper.h
+
+/home/quangminh/NetWork Programming/csocket-final/libs/functions/string_helper.h
+stdio.h
+/home/quangminh/NetWork Programming/csocket-final/libs/functions/stdio.h
+string.h
+-
+string
+-
+list
+-
+
+/home/quangminh/NetWork Programming/csocket-final/libs/md5/md5.cpp
+md5.h
+/home/quangminh/NetWork Programming/csocket-final/libs/md5/md5.h
+cstdio
+-
+
+/home/quangminh/NetWork Programming/csocket-final/libs/md5/md5.h
+cstring
+-
+iostream
+-
+

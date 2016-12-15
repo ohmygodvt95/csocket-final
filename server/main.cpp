@@ -1,85 +1,116 @@
-//
-// Created by lengkeng on 23/11/2016.
-//
-
-#include "main.h"
-//
-// Created by lengkeng on 12/10/2016.
-//
-#include <iostream>
-#include <unistd.h>
-#include <string.h>
+#include <stdio.h>          /* These are the usual header files */
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <sys/wait.h>
 #include <arpa/inet.h>
+#include <iostream>
+#include <zconf.h>
+#include <string.h>
+#include <wait.h>
+#include <list>
+#include <sstream>
+#include "../libs/entity/user.h"
+#include "../libs/constants.h"
 using namespace std;
-#define PORT 5500
-#define BACKLOG 20
-#define SIGN_SUCCESS "success"
-#define SIGN_FAILURE "failure"
-#define SIGN_LOCKED "locked"
-void sig_chld(int signo) {
+#define PORT 5500   /* Port that will be opened */
+#define BACKLOG 20   /* Number of allowed connections */
+
+void sig_chld(int signo){
     pid_t pid;
     int stat;
-    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
-        printf("[ForkingServer] Child %d terminated\n", pid);
+    while((pid=waitpid(-1,&stat,WNOHANG))>0)
+        printf("[ForkingServer] Child %d terminated\n",pid);
 }
 
-int check_exits_username(char s[]){
-    FILE * f;
-    char user[100];
-    char pass[100];
-    f = fopen("users.txt", "r+");
-    if(f == NULL) return 0;
-    while(!feof(f)){
-        if(fscanf(f,"%s %s\n", user, pass) > 1){
-            if(strcmp(user, s) == 0) {
-                fclose(f);
-                return 1;
-            }
-        }
-    }
-    fclose(f);
-    return 0;
+user fromStringToUser(char c[]) {
+    user u;
+    int len;
+    len=strlen(c);
+    c[len-1]='\0';
+    char *p;
+    p = strtok(c, ",");
+    u.username = p;
+    p = strtok(NULL, ",");
+    u.password = p;
+    u.status=0;
+
+    return u;
 }
-int check_username_password(char u[], char p[]){
-    FILE * f;
-    char user[100];
-    char pass[100];
-    f = fopen("users.txt", "r+");
-    if(f == NULL) return 0;
-    while(!feof(f)){
-        if(fscanf(f,"%s %s\n", user, pass) > 1){
-            if(strcmp(u, user) == 0 && strcmp(p, pass) == 0) {
-                fclose(f);
-                return 1;
-            }
-        }
-    }
-    fclose(f);
-    return 0;
+int readState(char c[]){
+    int state;
+    char *p;
+    p=strtok(c, ",");
+    return atoi(p);
 }
+list<user> readFile(FILE *in){
+    list<user> list;
+    user u=user();
+    char c[80];
+    while(fgets(c,80,in)!=NULL)
+    {
+        list.push_back(fromStringToUser(c));
+
+    }
+
+    return list;
+}
+int check_user_password(char str[],list<user> listUser,int clientSock) {
+    cout<< str <<endl;
+
+    char *p;
+    string username;
+    string password;
+    //get status code
+    p = strtok(str, ",");
+    //get username
+    p=strtok(NULL,",");
+    username=p;
+    //get password
+    p=strtok(NULL,",");
+    cout<<username<<endl;
+    list<user>::iterator a =listUser.begin();
+    for(a;a!=listUser.end();a++){
+        if(strcmp(username.c_str(),a->username.c_str())==0 && strcmp(password.c_str(),a->password.c_str())==0 ){
+            a->status=1;
+            a->clientSock=clientSock;
+            cout<< "ok" <<endl;
+            return 200;
+        }
+    password = p;
+
+
+    }
+    cout<< "failed" <<endl;
+
+    return 404;
+}
+
+
 int main() {
+    pid_t pid;
 
     int listen_sock, conn_sock; /* file descriptors */
     char recv_data[1024];
-    int bytes_sent;
+    int bytes_sent, bytes_received;
     struct sockaddr_in server; /* server's address information */
     struct sockaddr_in client; /* client's address information */
-    pid_t pid;
+    FILE *in;
+    in = fopen("/home/quangminh/NetWork Programming/csocket-final/server/db.txt", "r+");
+    list<user> listUser = readFile(in);
     int sin_size;
 
     if ((listen_sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {  /* calls socket() */
         printf("socket() error\n");
         exit(-1);
     }
-    bzero(&server, sizeof(server));
+
     server.sin_family = AF_INET;
     server.sin_port = htons(PORT);   /* Remember htons() from "Conversions" section? =) */
     server.sin_addr.s_addr = htonl(INADDR_ANY);  /* INADDR_ANY puts your IP address automatically */
+    bzero(&(server.sin_zero), 8); /* zero the rest of the structure */
 
-    if (bind(listen_sock, (struct sockaddr *) &server, sizeof(server)) == -1) { /* calls bind() */
+
+    if (bind(listen_sock, (struct sockaddr *) &server, sizeof(struct sockaddr)) == -1) { /* calls bind() */
         printf("bind() error\n");
         exit(-1);
     }
@@ -88,8 +119,13 @@ int main() {
         printf("listen() error\n");
         exit(-1);
     }
-
+    cout <<"hello"<< endl;
     while (1) {
+        string data_param;
+        stringstream convert;
+        user u=user();
+        string response;
+        int boo;
         sin_size = sizeof(struct sockaddr_in);
         if ((conn_sock = accept(listen_sock, (struct sockaddr *) &client, (socklen_t *) &sin_size)) ==
             -1) { /* calls accept() */
@@ -98,13 +134,9 @@ int main() {
         }
 
         if ((pid = fork()) == 0) {
-            int stage = 0;
-            int bytes_received;
-            char buff[1024];
-            char user[100];
-            int locked = 5;
-            FILE *f;
             close(listen_sock);
+            int state;
+
             printf("You got a connection from %s\n", inet_ntoa(client.sin_addr)); /* prints client's IP */
             bytes_sent = send(conn_sock, "Welcome to my server.\n", 22, 0); /* send to the client welcome message */
             if (bytes_sent < 0) {
@@ -112,67 +144,42 @@ int main() {
                 close(conn_sock);
                 continue;
             }
-            while(stage == 0){
-                bytes_received = recv(conn_sock, buff, 1024, 0);
-                if(bytes_received < 0){
-                    printf("\nError!Cannot receive data from sever!\n");
-                    close(conn_sock);
-                    exit(0);
+            bytes_received = recv(conn_sock, recv_data, 1024, 0);
+            recv_data[bytes_received] = '\0';
+            data_param=recv_data;
+            state = readState(recv_data);
+            printf("%s\n",data_param.c_str());
+            printf("%d\n",state);
+            while (true) {
+                switch (state) {
+                    case SIGN_IN:
+                        
+                        convert << check_user_password((char *) data_param.c_str(), listUser, conn_sock);
+                        response = convert.str();
+                        cout << response << endl;
+                        bytes_sent = send(conn_sock, "200", 4, 0);
+
+                        break;
+                    case SIGN_UP:
+                        break;
+                    case FIND_FILE_REQUEST_TO_SERVER:
+                        bytes_sent=send(conn_sock,"204,quangminh,vinhthien",27,0);
+
+                        break;
                 }
-                else{
-                    buff[bytes_received] = '\0';
-                    if(check_exits_username(buff)) {
-                        stage = 1;
-                        strcpy(user, buff);
-                        bytes_sent = send(conn_sock, SIGN_SUCCESS, strlen(SIGN_SUCCESS), 0);
-                    }
-                    else{
-                        bytes_sent = send(conn_sock, SIGN_FAILURE, strlen(SIGN_FAILURE), 0);
-                    }
-                    if (bytes_sent < 0) {
-                        printf("\nError!Can not sent data to client!");
-                        close(conn_sock);
-                        continue;
-                    }
-                }
-            }
-            while(stage == 1){
-                bytes_received = recv(conn_sock, buff, 1024, 0);
-                if(bytes_received < 0){
-                    printf("\nError!Cannot receive data from sever!\n");
-                    close(conn_sock);
-                    exit(0);
-                }
-                else{
-                    buff[bytes_received] = '\0';
-                    if(check_username_password(user, buff)) {
-                        stage = 2;
-                        bytes_sent = send(conn_sock, SIGN_SUCCESS, strlen(SIGN_SUCCESS), 0);
-                        cout << user << " authenticated" << endl;
-                    }
-                    else{
-                        if(--locked != 1) bytes_sent = send(conn_sock, SIGN_FAILURE, strlen(SIGN_FAILURE), 0);
-                        else {
-                            stage = 3;
-                            bytes_sent = send(conn_sock, SIGN_LOCKED, strlen(SIGN_LOCKED), 0);
-                        }
-                    }
-                    if (bytes_sent < 0) {
-                        printf("\nError!Can not sent data to client!");
-                        close(conn_sock);
-                        continue;
-                    }
-                }
+
             }
             exit(0);
         }
+
 
         signal(SIGCHLD, sig_chld);
 
         close(conn_sock);
     }
+
     close(listen_sock);
-    return 1;
+    return 0;
+
+
 }
-
-

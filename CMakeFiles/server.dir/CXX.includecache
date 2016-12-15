@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/quangminh/NetWork Programming/csocket-final/libs/constants.h
+
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/user.h
+stdio.h
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/stdio.h
+string.h
+-
+string
+-
+
+/home/quangminh/NetWork Programming/csocket-final/server/main.cpp
+stdio.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+iostream
+-
+zconf.h
+-
+string.h
+-
+wait.h
+-
+list
+-
+sstream
+-
+../libs/entity/user.h
+/home/quangminh/NetWork Programming/csocket-final/libs/entity/user.h
+../libs/constants.h
+/home/quangminh/NetWork Programming/csocket-final/libs/constants.h
+

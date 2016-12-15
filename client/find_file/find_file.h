@@ -14,8 +14,8 @@ using namespace std;
 
 class find_file {
 public:
-    static void findFileWithKeyword(int client_sock);
-    static char * checkExistFile(char *fileName);
+    static void findFileWithKeyword(int client_sock,int client_transfer_sock);
+    static bool checkExistFile(char *fileName);
 };
 
 
