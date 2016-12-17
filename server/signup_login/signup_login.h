@@ -10,7 +10,19 @@
 
 class signup_login {
 public:
-    static void signup_login_thread(user u, int server_socket);
+    static void *signup_login_thread(void *us);
+
+    static char *get_username(char buff[]);
+
+    static char *get_password(char buff[]);
+
+    static bool check_username_exist(char buff[]);
+
+    static bool create_user(char buff[]);
+
+    static bool check_login(char buff[]);
+
+    static bool check_logged(char *buff);
 };
 
 

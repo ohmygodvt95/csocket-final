@@ -7,7 +7,8 @@
 
 
 class fileio {
-
+public:
+    static void *transfer_file_server(void *u);
 };
 
 

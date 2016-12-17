@@ -9,25 +9,35 @@
 #define TRUE 1
 #define FALSE 0
 
-#define DATA_FILE "./data/users.txt"
+#define DATA_FILE "/home/lengkeng/ClionProjects/share-file/server/data/users.txt"
 #define PORT_SIGNUP_LOGIN 5500
-
+#define PORT_TRANFER_FILE 5000
+// login stage
+#define AUTH_FAILURE 0
+#define AUTH_SUCCESS 1
 // signup signin
 #define SIGN_IN 101
 #define SIGN_UP 102
-
+#define SIGN_UP_USER_EXIST 103
+#define SIGN_UP_USER_CREATED 104
+#define SIGN_IN_FAILURE 105
+#define SIGN_IN_SUCCESS 106
+#define SIGN_IN_EXIST 107
 //Find file
 #define FIND_FILE_REQUEST_TO_SERVER 201
 #define FIND_FILE_REQUEST_TO_CLIENT 202
 #define FIND_FILE_RESPONSE_FROM_CLIENT 203
-#define FIN_FILE_RESPONE_TO_CLIENT 204
+#define FIND_FILE_RESPONE_TO_CLIENT 205
+#define FIND_FILE_INFO 204
 
 //Accept file?
 #define SELECT_FILE_FROM_CLIENT 301
 #define SELECT_FILE_TO_CLIENT 302
 
 //File transfer
-#define FILE_TRANSFER_TO_SERVER 303
-#define FILE_TRANSFER_TO_CLIENT 304
+#define FILE_TRANSFER_FROM_CLIENT 303
+#define FILE_TRANSFER_FROM_CLIENT_RESULT 304
+#define FILE_TRANSFER_TO_CLIENT 305
+#define FILE_TRANSFER_TO_CLIENT_RESULT 306
 
 

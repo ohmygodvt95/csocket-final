@@ -6,7 +6,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <zconf.h>
-
+#include "test_signup.h"
 using namespace std;
 
 int main() {
@@ -33,7 +33,7 @@ int main() {
         return (-1);
     } else {
         buff[bytes_received] = '\0';
-        puts(buff);
+        cout << buff << endl;
         do {
             if (strcmp(buff, "Q") == 0) {
                 close(client_sock);
@@ -41,8 +41,9 @@ int main() {
                 return 0;
             }
             printf("\nInsert string to send:");
-            memset(buff, '\0', (strlen(buff) + 1));
-            gets(buff);
+            cin >> buff;
+
+            cout << buff << endl;
             bytes_sent = send(client_sock, buff, strlen(buff), 0);
             total += bytes_sent;
             if (bytes_sent == -1) {
@@ -57,7 +58,7 @@ int main() {
                     return (-1);
                 }
                 buff[bytes_received] = '\0';
-                puts(buff);
+                cout << buff << endl;
             }
 
         } while (bytes_received);

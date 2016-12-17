@@ -15,12 +15,15 @@ using namespace std;
 
 class user {
 public:
+
+
     static bool check_string(char string[]);
 
     string username;
     string password;
     int status;
     int client_sock;
+    int client_transfer_sock;
 };
 
 
